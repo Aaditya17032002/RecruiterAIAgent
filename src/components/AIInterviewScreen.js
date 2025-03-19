@@ -107,11 +107,19 @@ function AIInterviewScreen() {
         try {
             setIsProcessing(true);
 
-            console.log('Sending interview data:', {
-                job_title: contextJobTitle,
-                candidate_name: contextCandidateName,
-                audio_text: audioText
-            });
+            // Validate required data
+            if (!contextJobTitle || !contextCandidateName) {
+                throw new Error('Missing required interview data. Please start the interview from the candidate screening page.');
+            }
+
+            // Prepare the request payload
+            const payload = {
+                job_title: contextJobTitle.trim(),
+                candidate_name: contextCandidateName.trim(),
+                audio_text: audioText.trim()
+            };
+
+            console.log('Sending interview data:', payload);
 
             const response = await fetch('https://recruiteraiagentbackend-1.onrender.com/api/analyze-interview', {
                 method: 'POST',
@@ -122,16 +130,13 @@ function AIInterviewScreen() {
                 },
                 credentials: 'include',
                 mode: 'cors',
-                body: JSON.stringify({
-                    job_title: contextJobTitle,
-                    candidate_name: contextCandidateName,
-                    audio_text: audioText
-                })
+                body: JSON.stringify(payload)
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.detail || 'API request failed');
+                const errorData = await response.json().catch(() => ({}));
+                console.error('API Error Response:', errorData);
+                throw new Error(`API call failed with status ${response.status}: ${errorData.detail || 'Unknown error'}`);
             }
 
             const data = await response.json();
@@ -141,7 +146,7 @@ function AIInterviewScreen() {
             return data.interview_analysis || data.response || "I'm processing your response. Please continue.";
         } catch (error) {
             console.error('Error analyzing interview:', error);
-            return 'I apologize, but I encountered an error. Please try again.';
+            return error.message || 'I apologize, but I encountered an error. Please try again.';
         } finally {
             setIsProcessing(false);
         }
@@ -312,9 +317,23 @@ function AIInterviewScreen() {
             try {
                 setIsProcessing(true);
 
+                // Validate required data
+                if (!contextJobTitle || !contextCandidateName) {
+                    throw new Error('Missing required interview data. Please start the interview from the candidate screening page.');
+                }
+
                 // Add user's response to conversation
                 const userMessage = { role: 'user', content: text };
                 setConversation(prev => [...prev, userMessage]);
+
+                // Prepare the request payload
+                const payload = {
+                    job_title: contextJobTitle.trim(),
+                    candidate_name: contextCandidateName.trim(),
+                    audio_text: text.trim()
+                };
+
+                console.log('Sending interview data:', payload);
 
                 // Make the API call with JSON data
                 const response = await fetch('https://recruiteraiagentbackend-1.onrender.com/api/analyze-interview', {
@@ -326,16 +345,13 @@ function AIInterviewScreen() {
                     },
                     credentials: 'include',
                     mode: 'cors',
-                    body: JSON.stringify({
-                        job_title: contextJobTitle,
-                        candidate_name: contextCandidateName,
-                        audio_text: text.trim()
-                    })
+                    body: JSON.stringify(payload)
                 });
 
                 if (!response.ok) {
                     const errorData = await response.json().catch(() => ({}));
-                    throw new Error(`API call failed with status ${response.status}`);
+                    console.error('API Error Response:', errorData);
+                    throw new Error(`API call failed with status ${response.status}: ${errorData.detail || 'Unknown error'}`);
                 }
 
                 const data = await response.json();
@@ -356,7 +372,7 @@ function AIInterviewScreen() {
                 }
             } catch (error) {
                 console.error('Error in API call:', error);
-                const errorMessage = 'I apologize, but I encountered an error. Please try again.';
+                const errorMessage = error.message || 'I apologize, but I encountered an error. Please try again.';
                 const aiMessage = { role: 'assistant', content: errorMessage };
                 setConversation(prev => [...prev, aiMessage]);
                 await speakText(errorMessage);
