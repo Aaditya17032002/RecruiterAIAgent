@@ -125,10 +125,30 @@ function JobScreeningResults() {
             const candidatesWithCredentials = topCandidates.map(candidate => {
                 const { email, password } = generateRandomCredentials(candidate.name);
                 return {
-                    ...candidate,
-                    email,
-                    password
+                    name: candidate.name,
+                    email: email,
+                    password: password,
+                    matchScore: candidate.matchScore,
+                    strengths: candidate.strengths,
+                    areas_of_improvement: candidate.areas_of_improvement,
+                    matched_tools: candidate.matched_tools,
+                    missing_tools: candidate.missing_tools,
+                    skills: candidate.skills
                 };
+            });
+
+            const jobDetails = {
+                title: selectedJob.title,
+                company: selectedJob.company || 'Company Name',
+                location: selectedJob.location || 'Location',
+                type: selectedJob.type || 'Full-time',
+                description: selectedJob.description || '',
+                requirements: selectedJob.requirements || []
+            };
+
+            console.log('Sending notification request with payload:', {
+                jobDetails,
+                candidates: candidatesWithCredentials
             });
 
             const response = await fetch('https://recruiteraiagentbackend-1.onrender.com/api/allcandidatesEmail', {
@@ -141,14 +161,7 @@ function JobScreeningResults() {
                 credentials: 'include',
                 mode: 'cors',
                 body: JSON.stringify({
-                    jobDetails: {
-                        title: selectedJob.title,
-                        company: selectedJob.company,
-                        location: selectedJob.location,
-                        type: selectedJob.type,
-                        description: selectedJob.description,
-                        requirements: selectedJob.requirements
-                    },
+                    jobDetails,
                     candidates: candidatesWithCredentials
                 })
             });
@@ -173,10 +186,30 @@ function JobScreeningResults() {
             // Generate credentials for the candidate
             const { email, password } = generateRandomCredentials(candidate.name);
             const candidateWithCredentials = {
-                ...candidate,
-                email,
-                password
+                name: candidate.name,
+                email: email,
+                password: password,
+                matchScore: candidate.matchScore,
+                strengths: candidate.strengths,
+                areas_of_improvement: candidate.areas_of_improvement,
+                matched_tools: candidate.matched_tools,
+                missing_tools: candidate.missing_tools,
+                skills: candidate.skills
             };
+
+            const jobDetails = {
+                title: selectedJob.title,
+                company: selectedJob.company || 'Company Name',
+                location: selectedJob.location || 'Location',
+                type: selectedJob.type || 'Full-time',
+                description: selectedJob.description || '',
+                requirements: selectedJob.requirements || []
+            };
+
+            console.log('Sending notification request with payload:', {
+                jobDetails,
+                candidate: candidateWithCredentials
+            });
 
             const response = await fetch('https://recruiteraiagentbackend-1.onrender.com/api/candidateEmail', {
                 method: 'POST',
@@ -188,14 +221,7 @@ function JobScreeningResults() {
                 credentials: 'include',
                 mode: 'cors',
                 body: JSON.stringify({
-                    jobDetails: {
-                        title: selectedJob.title,
-                        company: selectedJob.company,
-                        location: selectedJob.location,
-                        type: selectedJob.type,
-                        description: selectedJob.description,
-                        requirements: selectedJob.requirements
-                    },
+                    jobDetails,
                     candidate: candidateWithCredentials
                 })
             });
