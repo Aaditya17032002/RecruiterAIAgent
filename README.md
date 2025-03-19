@@ -1,47 +1,30 @@
-# TalentFlow - AI-Powered Recruitment Platform
+# Recruiter AI Agent
 
-TalentFlow is a modern, AI-powered recruitment platform that streamlines the hiring process through intelligent candidate screening, automated interviews, and bias-free evaluation. Built with React and Material-UI, it offers a seamless experience for both recruiters and candidates.
+A modern web application that streamlines the recruitment process using AI-powered candidate screening and interview scheduling.
 
-![TalentFlow Logo](public/logo192.png)
+## Features
 
-## 🌟 Features
+- **AI-Powered Resume Screening**: Automatically analyze resumes against job descriptions
+- **Smart Candidate Matching**: Score and rank candidates based on skills and experience
+- **Automated Email Notifications**: Send personalized emails to candidates with interview details
+- **Interactive Dashboard**: Visualize candidate matches and screening results
+- **Video Interview Scheduling**: Schedule and manage video interviews with candidates
+- **Real-time Analytics**: Track screening metrics and candidate performance
 
-### 1. AI-Powered Interview System
-- Real-time voice-based interviews
-- Natural conversation flow with AI interviewer
-- Automatic transcription and response analysis
-- Dynamic question generation based on candidate responses
+## Tech Stack
 
-### 2. Resume Analysis
-- Intelligent resume parsing
-- Skill extraction and categorization
-- Experience analysis
-- Education and certification tracking
+- **Frontend**: React.js with Material-UI
+- **State Management**: React Context API
+- **API Integration**: RESTful API with CORS support
+- **Styling**: Material-UI components and custom CSS
+- **Deployment**: Vercel (Frontend)
 
-### 3. Job Description Analysis
-- Automated job requirement extraction
-- Skill matching and scoring
-- Experience level assessment
-- Role-specific criteria analysis
-
-### 4. Candidate Screening
-- Automated candidate evaluation
-- Skill matching against job requirements
-- Experience relevance scoring
-- Bias mitigation in evaluation
-
-### 5. Modern UI/UX
-- Clean and intuitive interface
-- Real-time voice animations
-- Progress tracking
-- Responsive design for all devices
-
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
+
 - Node.js (v14 or higher)
-- npm or yarn package manager
-- Modern web browser with microphone support
+- npm or yarn
 
 ### Installation
 
@@ -54,81 +37,53 @@ cd RecruiterAIAgent
 2. Install dependencies:
 ```bash
 npm install
-# or
-yarn install
 ```
 
 3. Start the development server:
 ```bash
 npm start
-# or
-yarn start
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+The application will be available at `http://localhost:3000`
 
-## 📁 Project Structure
+## API Endpoints
 
-```
-src/
-├── components/           # React components
-│   ├── AIInterviewScreen.js    # AI interview interface
-│   ├── ResumeUpload.js         # Resume upload component
-│   ├── JobDescriptionInput.js  # Job posting creation
-│   ├── CandidateScreening.js   # Candidate evaluation
-│   └── ...                     # Other UI components
-├── services/            # API and service integrations
-├── context/            # React context providers
-├── utils/              # Utility functions
-└── data/               # Static data and constants
-```
+The application uses the following API endpoints:
 
-## 🔄 Application Flow
+- `POST /api/upload-resume`: Upload and analyze resumes
+- `GET /api/screen-results`: Fetch screening results
+- `POST /api/allcandidatesEmail`: Send notifications to multiple candidates
+- `POST /api/candidateEmail`: Send notification to a single candidate
 
-1. **Job Description Creation**
-   - Recruiter creates a job posting
-   - System analyzes requirements and skills
+All API endpoints are configured to use the live backend service at `https://recruiteraiagentbackend-1.onrender.com`.
 
-2. **Resume Upload & Analysis**
-   - Candidates upload their resumes
-   - System extracts and categorizes information
+## Key Components
 
-3. **Candidate Screening**
-   - Automated evaluation of candidates
-   - Skill matching and scoring
-   - Bias-free assessment
+### ResumeUpload
+- Handles resume file uploads
+- Processes job descriptions
+- Integrates with AI screening service
 
-4. **AI Interview**
-   - Voice-based interview with AI
-   - Real-time transcription
-   - Dynamic question generation
-   - Response analysis
+### JobScreeningResults
+- Displays candidate screening results
+- Shows match scores and skill analysis
+- Manages candidate notifications
+- Generates temporary credentials for candidates
 
-5. **Results & Evaluation**
-   - Comprehensive candidate assessment
-   - Detailed matching report
-   - Final scoring and recommendations
+### AIInterviewScreen
+- Manages video interview scheduling
+- Handles interview notifications
+- Tracks interview status
 
-## 🛠️ Technologies Used
+## Environment Variables
 
-- **Frontend Framework**: React 19
-- **UI Library**: Material-UI
-- **Animations**: Framer Motion
-- **Routing**: React Router
-- **State Management**: React Context
-- **API Integration**: Axios
-- **File Handling**: React Dropzone
-- **PDF Processing**: PDF.js
-
-## 🔧 Configuration
-
-The application uses environment variables for configuration. Create a `.env` file in the root directory:
+Create a `.env` file in the root directory with the following variables:
 
 ```env
-REACT_APP_API_URL=your_api_url
+REACT_APP_API_URL=https://recruiteraiagentbackend-1.onrender.com
 ```
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
@@ -136,24 +91,18 @@ REACT_APP_API_URL=your_api_url
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📝 License
+## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 👥 Authors
+## Acknowledgments
 
-- **Aaditya** - *Initial work* - [Aaditya17032002](https://github.com/Aaditya17032002)
+- Material-UI for the component library
+- React Router for navigation
+- The AI screening service team
 
-## 🙏 Acknowledgments
+## Contact
 
-- Material-UI for the beautiful components
-- Framer Motion for smooth animations
-- React community for excellent tools and libraries
+Aaditya Soni - [GitHub](https://github.com/Aaditya17032002)
 
-## 📞 Support
-
-For support, email support@talentflow.com or create an issue in the repository.
-
----
-
-Made with ❤️ by the TalentFlow Team
+Project Link: [https://github.com/Aaditya17032002/RecruiterAIAgent](https://github.com/Aaditya17032002/RecruiterAIAgent)
