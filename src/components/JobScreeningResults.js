@@ -112,30 +112,18 @@ function JobScreeningResults() {
         }
     };
 
-    const generateRandomCredentials = (name) => {
-        const randomString = Math.random().toString(36).substring(2, 8); // Generate a random string
-        const email = `${name.toLowerCase().replace(/\s+/g, '')}.${randomString}@example.com`; // Create a random email
-        const password = randomString; // Use the random string as the password
-        return { email, password };
-    };
-
     const notifyAllCandidates = async () => {
         try {
-            // Generate credentials for each candidate
-            const candidatesWithCredentials = topCandidates.map(candidate => {
-                const { email, password } = generateRandomCredentials(candidate.name);
-                return {
-                    name: candidate.name,
-                    email: email,
-                    password: password,
-                    matchScore: candidate.matchScore,
-                    strengths: candidate.strengths,
-                    areas_of_improvement: candidate.areas_of_improvement,
-                    matched_tools: candidate.matched_tools,
-                    missing_tools: candidate.missing_tools,
-                    skills: candidate.skills
-                };
-            });
+            // Prepare candidates data without credentials
+            const candidatesData = topCandidates.map(candidate => ({
+                name: candidate.name,
+                matchScore: candidate.matchScore,
+                strengths: candidate.strengths,
+                areas_of_improvement: candidate.areas_of_improvement,
+                matched_tools: candidate.matched_tools,
+                missing_tools: candidate.missing_tools,
+                skills: candidate.skills
+            }));
 
             // Extract requirements from job description
             const requirements = selectedJob.description
@@ -159,7 +147,7 @@ function JobScreeningResults() {
 
             console.log('Sending notification request with payload:', {
                 jobDetails,
-                candidates: candidatesWithCredentials
+                candidates: candidatesData
             });
 
             const response = await fetch('https://recruiteraiagentbackend-1.onrender.com/api/allcandidatesEmail', {
@@ -173,7 +161,7 @@ function JobScreeningResults() {
                 mode: 'cors',
                 body: JSON.stringify({
                     jobDetails,
-                    candidates: candidatesWithCredentials
+                    candidates: candidatesData
                 })
             });
 
@@ -194,12 +182,9 @@ function JobScreeningResults() {
 
     const notifySelectedCandidate = async (candidate) => {
         try {
-            // Generate credentials for the candidate
-            const { email, password } = generateRandomCredentials(candidate.name);
-            const candidateWithCredentials = {
+            // Prepare candidate data without credentials
+            const candidateData = {
                 name: candidate.name,
-                email: email,
-                password: password,
                 matchScore: candidate.matchScore,
                 strengths: candidate.strengths,
                 areas_of_improvement: candidate.areas_of_improvement,
@@ -230,7 +215,7 @@ function JobScreeningResults() {
 
             console.log('Sending notification request with payload:', {
                 jobDetails,
-                candidate: candidateWithCredentials
+                candidate: candidateData
             });
 
             const response = await fetch('https://recruiteraiagentbackend-1.onrender.com/api/candidateEmail', {
@@ -244,7 +229,7 @@ function JobScreeningResults() {
                 mode: 'cors',
                 body: JSON.stringify({
                     jobDetails,
-                    candidate: candidateWithCredentials
+                    candidate: candidateData
                 })
             });
 
