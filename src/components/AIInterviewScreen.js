@@ -107,15 +107,20 @@ function AIInterviewScreen() {
         try {
             setIsProcessing(true);
 
+            // Get job title and candidate name from either context or location state
+            const jobTitle = contextJobTitle || jobTitle;
+            const candidateName = contextCandidateName || candidateName;
+
             // Validate required data
-            if (!contextJobTitle || !contextCandidateName) {
+            if (!jobTitle || !candidateName) {
+                console.error('Missing interview data:', { jobTitle, candidateName });
                 throw new Error('Missing required interview data. Please start the interview from the candidate screening page.');
             }
 
             // Prepare the request payload
             const payload = {
-                job_title: contextJobTitle.trim(),
-                candidate_name: contextCandidateName.trim(),
+                job_title: jobTitle.trim(),
+                candidate_name: candidateName.trim(),
                 audio_text: audioText.trim()
             };
 
@@ -136,7 +141,7 @@ function AIInterviewScreen() {
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
                 console.error('API Error Response:', errorData);
-                throw new Error(`API call failed with status ${response.status}: ${errorData.detail || 'Unknown error'}`);
+                throw new Error(`API call failed with status ${response.status}: ${JSON.stringify(errorData.detail || 'Unknown error')}`);
             }
 
             const data = await response.json();
@@ -317,8 +322,13 @@ function AIInterviewScreen() {
             try {
                 setIsProcessing(true);
 
+                // Get job title and candidate name from either context or location state
+                const jobTitle = contextJobTitle || jobTitle;
+                const candidateName = contextCandidateName || candidateName;
+
                 // Validate required data
-                if (!contextJobTitle || !contextCandidateName) {
+                if (!jobTitle || !candidateName) {
+                    console.error('Missing interview data:', { jobTitle, candidateName });
                     throw new Error('Missing required interview data. Please start the interview from the candidate screening page.');
                 }
 
@@ -328,8 +338,8 @@ function AIInterviewScreen() {
 
                 // Prepare the request payload
                 const payload = {
-                    job_title: contextJobTitle.trim(),
-                    candidate_name: contextCandidateName.trim(),
+                    job_title: jobTitle.trim(),
+                    candidate_name: candidateName.trim(),
                     audio_text: text.trim()
                 };
 
@@ -351,7 +361,7 @@ function AIInterviewScreen() {
                 if (!response.ok) {
                     const errorData = await response.json().catch(() => ({}));
                     console.error('API Error Response:', errorData);
-                    throw new Error(`API call failed with status ${response.status}: ${errorData.detail || 'Unknown error'}`);
+                    throw new Error(`API call failed with status ${response.status}: ${JSON.stringify(errorData.detail || 'Unknown error')}`);
                 }
 
                 const data = await response.json();
