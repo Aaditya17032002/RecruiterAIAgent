@@ -106,10 +106,6 @@ function AIInterviewScreen() {
     const analyzeInterviewResponse = async (audioText) => {
         try {
             setIsProcessing(true);
-            const formData = new FormData();
-            formData.append('job_title', contextJobTitle);
-            formData.append('candidate_name', contextCandidateName);
-            formData.append('audio_text', audioText);
 
             console.log('Sending interview data:', {
                 job_title: contextJobTitle,
@@ -126,7 +122,11 @@ function AIInterviewScreen() {
                 },
                 credentials: 'include',
                 mode: 'cors',
-                body: formData
+                body: JSON.stringify({
+                    job_title: contextJobTitle,
+                    candidate_name: contextCandidateName,
+                    audio_text: audioText
+                })
             });
 
             if (!response.ok) {
@@ -316,12 +316,7 @@ function AIInterviewScreen() {
                 const userMessage = { role: 'user', content: text };
                 setConversation(prev => [...prev, userMessage]);
 
-                // Make the API call
-                const formData = new FormData();
-                formData.append('job_title', contextJobTitle);
-                formData.append('candidate_name', contextCandidateName);
-                formData.append('audio_text', text.trim());
-
+                // Make the API call with JSON data
                 const response = await fetch('https://recruiteraiagentbackend-1.onrender.com/api/analyze-interview', {
                     method: 'POST',
                     headers: {
@@ -331,7 +326,11 @@ function AIInterviewScreen() {
                     },
                     credentials: 'include',
                     mode: 'cors',
-                    body: formData
+                    body: JSON.stringify({
+                        job_title: contextJobTitle,
+                        candidate_name: contextCandidateName,
+                        audio_text: text.trim()
+                    })
                 });
 
                 if (!response.ok) {
