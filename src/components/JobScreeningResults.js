@@ -141,7 +141,14 @@ function JobScreeningResults() {
                 credentials: 'include',
                 mode: 'cors',
                 body: JSON.stringify({
-                    job_title: selectedJob.title,
+                    jobDetails: {
+                        title: selectedJob.title,
+                        company: selectedJob.company,
+                        location: selectedJob.location,
+                        type: selectedJob.type,
+                        description: selectedJob.description,
+                        requirements: selectedJob.requirements
+                    },
                     candidates: candidatesWithCredentials
                 })
             });
@@ -181,7 +188,14 @@ function JobScreeningResults() {
                 credentials: 'include',
                 mode: 'cors',
                 body: JSON.stringify({
-                    job_title: selectedJob.title,
+                    jobDetails: {
+                        title: selectedJob.title,
+                        company: selectedJob.company,
+                        location: selectedJob.location,
+                        type: selectedJob.type,
+                        description: selectedJob.description,
+                        requirements: selectedJob.requirements
+                    },
                     candidate: candidateWithCredentials
                 })
             });
