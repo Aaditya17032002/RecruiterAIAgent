@@ -1,70 +1,159 @@
-# Getting Started with Create React App
+# TalentFlow - AI-Powered Recruitment Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+TalentFlow is a modern, AI-powered recruitment platform that streamlines the hiring process through intelligent candidate screening, automated interviews, and bias-free evaluation. Built with React and Material-UI, it offers a seamless experience for both recruiters and candidates.
 
-## Available Scripts
+![TalentFlow Logo](public/logo192.png)
 
-In the project directory, you can run:
+## 🌟 Features
 
-### `npm start`
+### 1. AI-Powered Interview System
+- Real-time voice-based interviews
+- Natural conversation flow with AI interviewer
+- Automatic transcription and response analysis
+- Dynamic question generation based on candidate responses
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 2. Resume Analysis
+- Intelligent resume parsing
+- Skill extraction and categorization
+- Experience analysis
+- Education and certification tracking
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 3. Job Description Analysis
+- Automated job requirement extraction
+- Skill matching and scoring
+- Experience level assessment
+- Role-specific criteria analysis
 
-### `npm test`
+### 4. Candidate Screening
+- Automated candidate evaluation
+- Skill matching against job requirements
+- Experience relevance scoring
+- Bias mitigation in evaluation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 5. Modern UI/UX
+- Clean and intuitive interface
+- Real-time voice animations
+- Progress tracking
+- Responsive design for all devices
 
-### `npm run build`
+## 🚀 Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn package manager
+- Modern web browser with microphone support
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone the repository:
+```bash
+git clone https://github.com/Aaditya17032002/RecruiterAIAgent.git
+cd RecruiterAIAgent
+```
 
-### `npm run eject`
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. Start the development server:
+```bash
+npm start
+# or
+yarn start
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 📁 Project Structure
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+src/
+├── components/           # React components
+│   ├── AIInterviewScreen.js    # AI interview interface
+│   ├── ResumeUpload.js         # Resume upload component
+│   ├── JobDescriptionInput.js  # Job posting creation
+│   ├── CandidateScreening.js   # Candidate evaluation
+│   └── ...                     # Other UI components
+├── services/            # API and service integrations
+├── context/            # React context providers
+├── utils/              # Utility functions
+└── data/               # Static data and constants
+```
 
-## Learn More
+## 🔄 Application Flow
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. **Job Description Creation**
+   - Recruiter creates a job posting
+   - System analyzes requirements and skills
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. **Resume Upload & Analysis**
+   - Candidates upload their resumes
+   - System extracts and categorizes information
 
-### Code Splitting
+3. **Candidate Screening**
+   - Automated evaluation of candidates
+   - Skill matching and scoring
+   - Bias-free assessment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+4. **AI Interview**
+   - Voice-based interview with AI
+   - Real-time transcription
+   - Dynamic question generation
+   - Response analysis
 
-### Analyzing the Bundle Size
+5. **Results & Evaluation**
+   - Comprehensive candidate assessment
+   - Detailed matching report
+   - Final scoring and recommendations
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🛠️ Technologies Used
 
-### Making a Progressive Web App
+- **Frontend Framework**: React 19
+- **UI Library**: Material-UI
+- **Animations**: Framer Motion
+- **Routing**: React Router
+- **State Management**: React Context
+- **API Integration**: Axios
+- **File Handling**: React Dropzone
+- **PDF Processing**: PDF.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🔧 Configuration
 
-### Advanced Configuration
+The application uses environment variables for configuration. Create a `.env` file in the root directory:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```env
+REACT_APP_API_URL=your_api_url
+```
 
-### Deployment
+## 🤝 Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-### `npm run build` fails to minify
+## 📝 License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👥 Authors
+
+- **Aaditya** - *Initial work* - [Aaditya17032002](https://github.com/Aaditya17032002)
+
+## 🙏 Acknowledgments
+
+- Material-UI for the beautiful components
+- Framer Motion for smooth animations
+- React community for excellent tools and libraries
+
+## 📞 Support
+
+For support, email support@talentflow.com or create an issue in the repository.
+
+---
+
+Made with ❤️ by the TalentFlow Team
