@@ -222,7 +222,7 @@ function AIInterviewScreen() {
     useEffect(() => {
         const initVoices = () => {
             const voices = window.speechSynthesis.getVoices();
-            console.log('Initializing voices:', voices.map(v => `${v.name} (${v.lang})`));
+            console.log('Initializing voice:', voices.map(v => `${v.name} (${v.lang})`));
         };
 
         if (window.speechSynthesis) {
