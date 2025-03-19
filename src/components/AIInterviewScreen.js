@@ -117,7 +117,7 @@ function AIInterviewScreen() {
                 audio_text: audioText
             });
 
-            const response = await fetch('http://localhost:8000/api/analyze-interview', {
+            const response = await fetch('https://recruiteraiagentbackend-1.onrender.com/api/analyze-interview', {
                 method: 'POST',
                 body: formData
             });
@@ -315,7 +315,7 @@ function AIInterviewScreen() {
                 formData.append('candidate_name', contextCandidateName);
                 formData.append('audio_text', text.trim());
 
-                const response = await fetch('http://localhost:8000/api/analyze-interview', {
+                const response = await fetch('https://recruiteraiagentbackend-1.onrender.com/api/analyze-interview', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -489,7 +489,7 @@ function AIInterviewScreen() {
                         }}
                     >
                         <Typography variant="body2" sx={{ fontWeight: message.role === 'user' ? 'bold' : 'normal' }}>
-                            {message.role === 'assistant' ? 'AI Interviewer' : 'You'}:
+                            {message.role === 'user' ? 'You' : 'AI Interviewer'}
                         </Typography>
                         <Typography>{message.content}</Typography>
                     </Card>

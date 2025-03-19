@@ -44,7 +44,7 @@ function JobScreeningResults() {
 
     const fetchData = async () => {
         try {
-            const response = await fetch("http://localhost:8000/api/screen-results");
+            const response = await fetch("https://recruiteraiagentbackend-1.onrender.com/api/screen-results");
             if (!response.ok) throw new Error(`Error: ${response.statusText}`);
             const data = await response.json();
             console.log(data);
@@ -126,7 +126,7 @@ function JobScreeningResults() {
             console.log("API Payload for All Candidates:", JSON.stringify(payload, null, 2));
 
             try {
-                const response = await fetch('http://localhost:8000/api/allcandidatesEmail', {
+                const response = await fetch('https://recruiteraiagentbackend-1.onrender.com/api/allcandidatesEmail', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -165,7 +165,7 @@ function JobScreeningResults() {
         console.log("API Payload for Individual Candidate:", JSON.stringify(payload, null, 2));
 
         try {
-            const response = await fetch('http://localhost:8000/api/candidateEmail', {
+            const response = await fetch('https://recruiteraiagentbackend-1.onrender.com/api/candidateEmail', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
