@@ -108,16 +108,26 @@ function ResumeUpload() {
                     text = await file.text();
                 }
     
-                // Parse jobDescription if it's a JSON string
-                const jobDescriptionParsed = typeof jobDescription === 'string'
-                    ? JSON.parse(jobDescription)
-                    : jobDescription;
+                // Safely parse jobDescription
+                let jobDescriptionParsed;
+                try {
+                    if (typeof jobDescription === 'string') {
+                        jobDescriptionParsed = jobDescription.trim() ? JSON.parse(jobDescription) : {};
+                    } else {
+                        jobDescriptionParsed = jobDescription || {};
+                    }
+                } catch (parseError) {
+                    console.error('Error parsing job description:', parseError);
+                    jobDescriptionParsed = {};
+                }
     
                 // Build payload
                 const payload = {
                     resume_text: text,
                     job_description: jobDescriptionParsed
                 };
+    
+                console.log('Sending payload:', payload); // Debug log
     
                 // Send request
                 const response = await fetch("https://recruiteraiagentbackend-1.onrender.com/api/extract-resume-info", {
@@ -133,7 +143,9 @@ function ResumeUpload() {
                 });
     
                 if (!response.ok) {
-                    throw new Error(`Server responded with status ${response.status}`);
+                    const errorText = await response.text();
+                    console.error('Server response:', errorText);
+                    throw new Error(`Server responded with status ${response.status}: ${errorText}`);
                 }
     
                 return await response.json();
@@ -151,7 +163,8 @@ function ResumeUpload() {
             navigate('/analysis');
         } catch (err) {
             console.error("Upload error:", err);
-            alert("An error occurred while processing resumes. Please try again.");
+            setError(err.message);
+            alert(`An error occurred while processing resumes: ${err.message}`);
         } finally {
             setUploading(false);
         }
