@@ -207,20 +207,13 @@ function AIInterviewScreen() {
                 const voices = window.speechSynthesis.getVoices();
                 console.log('Available voices:', voices.map(v => `${v.name} (${v.lang})`));
                 
-                // Try to find a female voice in this order:
-                // 1. Female Indian English voice
-                // 2. Any female English voice
-                // 3. Any Indian English voice
-                // 4. Any English voice
-                // 5. Any voice
+                // Try to find Microsoft Zira voice
                 const preferredVoice = voices.find(voice => 
-                    voice.lang === 'en-IN' && voice.name.toLowerCase().includes('female')
+                    voice.name.toLowerCase().includes('microsoft zira')
+                ) || voices.find(voice => 
+                    voice.name.toLowerCase().includes('zira')
                 ) || voices.find(voice => 
                     voice.name.toLowerCase().includes('female')
-                ) || voices.find(voice => 
-                    voice.lang === 'en-IN'
-                ) || voices.find(voice => 
-                    voice.lang.startsWith('en-')
                 ) || voices[0];
 
                 if (preferredVoice) {
