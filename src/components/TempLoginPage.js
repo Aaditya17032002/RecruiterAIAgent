@@ -18,8 +18,12 @@ const TempLoginPage = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
                 },
-                body: JSON.stringify(payload),
+                credentials: 'include',
+                mode: 'cors',
+                body: JSON.stringify(payload)
             });
 
             if (!response.ok) {

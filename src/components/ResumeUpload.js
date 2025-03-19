@@ -122,8 +122,13 @@ function ResumeUpload() {
                 // Send request
                 const response = await fetch("https://recruiteraiagentbackend-1.onrender.com/api/extract-resume-info", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload)
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "Access-Control-Allow-Origin": "*"
+                    },
+                    credentials: "include",
+                    mode: "cors"
                 });
     
                 if (!response.ok) {

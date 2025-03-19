@@ -44,7 +44,15 @@ function JobScreeningResults() {
 
     const fetchData = async () => {
         try {
-            const response = await fetch("https://recruiteraiagentbackend-1.onrender.com/api/screen-results");
+            const response = await fetch("https://recruiteraiagentbackend-1.onrender.com/api/screen-results", {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                credentials: 'include',
+                mode: 'cors'
+            });
             if (!response.ok) throw new Error(`Error: ${response.statusText}`);
             const data = await response.json();
             console.log(data);
@@ -130,8 +138,12 @@ function JobScreeningResults() {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
                     },
-                    body: JSON.stringify(payload),
+                    credentials: 'include',
+                    mode: 'cors',
+                    body: JSON.stringify(payload)
                 });
 
                 if (!response.ok) {
@@ -169,8 +181,12 @@ function JobScreeningResults() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
                 },
-                body: JSON.stringify(payload),
+                credentials: 'include',
+                mode: 'cors',
+                body: JSON.stringify(payload)
             });
 
             if (!response.ok) {

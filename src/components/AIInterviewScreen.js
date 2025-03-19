@@ -119,6 +119,13 @@ function AIInterviewScreen() {
 
             const response = await fetch('https://recruiteraiagentbackend-1.onrender.com/api/analyze-interview', {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                credentials: 'include',
+                mode: 'cors',
                 body: formData
             });
 
@@ -318,8 +325,12 @@ function AIInterviewScreen() {
                 const response = await fetch('https://recruiteraiagentbackend-1.onrender.com/api/analyze-interview', {
                     method: 'POST',
                     headers: {
+                        'Content-Type': 'application/json',
                         'Accept': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
                     },
+                    credentials: 'include',
+                    mode: 'cors',
                     body: formData
                 });
 

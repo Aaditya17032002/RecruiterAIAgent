@@ -4,7 +4,12 @@ const API_BASE_URL = 'https://recruiteraiagentbackend-1.onrender.com/api';
 
 const api = axios.create({
     baseURL: API_BASE_URL,
-    timeout: 30000, // 30 seconds
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+    },
+    withCredentials: true
 });
 
 export const analyzeJobDescription = async (payload) => {
@@ -46,4 +51,6 @@ export const uploadResumes = async (formData, endpoint = '/resume-upload') => {
         }
         throw error;
     }
-}; 
+};
+
+export default api; 
