@@ -41,6 +41,7 @@ function JobScreeningResults() {
     const navigate = useNavigate();
     const [topCandidateCount, setTopCandidateCount] = useState(1);
     const [topCandidates, setTopCandidates] = useState([]);
+    const [error, setError] = useState(null);
 
     const fetchData = async () => {
         try {
@@ -53,12 +54,18 @@ function JobScreeningResults() {
                 credentials: 'include',
                 mode: 'cors'
             });
-            if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Server response:', errorText);
+                throw new Error(`Failed to fetch results: ${errorText}`);
+            }
+
             const data = await response.json();
-            console.log(data);
             setJobs(data || []);
         } catch (error) {
-            console.error("Failed to fetch data:", error);
+            console.error('Error fetching results:', error);
+            setError(error.message);
             setJobs([]);
         }
     };
@@ -112,70 +119,39 @@ function JobScreeningResults() {
         return { email, password };
     };
 
-    const handleNotifyCandidates = async () => {
-        if (topCandidates.length > 0) {
-            const jobDetails = {
-                title: selectedJob.title,
-                description: selectedJob.description,
-            };
+    const notifyAllCandidates = async () => {
+        try {
+            const response = await fetch('https://recruiteraiagentbackend-1.onrender.com/api/allcandidatesEmail', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                credentials: 'include',
+                mode: 'cors',
+                body: JSON.stringify({
+                    job_title: selectedJob.title,
+                    candidates: topCandidates
+                })
+            });
 
-            const payload = {
-                candidates: topCandidates.map(candidate => {
-                    const { email, password } = generateRandomCredentials(candidate.name);
-                    return {
-                        name: candidate.name,
-                        email,
-                        password
-                    };
-                }),
-                jobDetails
-            };
-
-            console.log("API Payload for All Candidates:", JSON.stringify(payload, null, 2));
-
-            try {
-                const response = await fetch('https://recruiteraiagentbackend-1.onrender.com/api/allcandidatesEmail', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Access-Control-Allow-Origin': '*'
-                    },
-                    credentials: 'include',
-                    mode: 'cors',
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to notify candidates');
-                }
-
-                console.log('All candidates notified successfully');
-            } catch (error) {
-                console.error('Error notifying candidates:', error);
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Server response:', errorText);
+                throw new Error(`Failed to notify candidates: ${errorText}`);
             }
+
+            const data = await response.json();
+            console.log('Notification sent successfully:', data);
+            alert('All candidates have been notified successfully!');
+        } catch (error) {
+            console.error('Error notifying candidates:', error);
+            alert(`Failed to notify candidates: ${error.message}`);
         }
     };
 
-    const handleNotifyIndividualCandidate = async (candidate) => {
-        const jobDetails = {
-            title: selectedJob.title,
-            description: selectedJob.description,
-        };
-
-        const { email, password } = generateRandomCredentials(candidate.name);
-
-        const payload = {
-            candidate: {
-                name: candidate.name,
-                email,
-                password
-            },
-            jobDetails
-        };
-
-        console.log("API Payload for Individual Candidate:", JSON.stringify(payload, null, 2));
-
+    const notifySelectedCandidate = async (candidate) => {
         try {
             const response = await fetch('https://recruiteraiagentbackend-1.onrender.com/api/candidateEmail', {
                 method: 'POST',
@@ -186,16 +162,24 @@ function JobScreeningResults() {
                 },
                 credentials: 'include',
                 mode: 'cors',
-                body: JSON.stringify(payload)
+                body: JSON.stringify({
+                    job_title: selectedJob.title,
+                    candidate: candidate
+                })
             });
 
             if (!response.ok) {
-                throw new Error('Failed to notify candidate');
+                const errorText = await response.text();
+                console.error('Server response:', errorText);
+                throw new Error(`Failed to notify candidate: ${errorText}`);
             }
 
-            console.log(`Candidate ${candidate.name} notified successfully`);
+            const data = await response.json();
+            console.log('Notification sent successfully:', data);
+            alert('Candidate has been notified successfully!');
         } catch (error) {
             console.error('Error notifying candidate:', error);
+            alert(`Failed to notify candidate: ${error.message}`);
         }
     };
 
@@ -408,7 +392,7 @@ function JobScreeningResults() {
                             </Button>
                             <Button
                                 variant="contained"
-                                onClick={handleNotifyCandidates}
+                                onClick={notifyAllCandidates}
                                 disabled={topCandidates.length === 0}
                                 sx={{ mb: 2, ml: 2 }}
                             >
