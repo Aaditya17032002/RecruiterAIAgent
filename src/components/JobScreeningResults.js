@@ -121,6 +121,16 @@ function JobScreeningResults() {
 
     const notifyAllCandidates = async () => {
         try {
+            // Generate credentials for each candidate
+            const candidatesWithCredentials = topCandidates.map(candidate => {
+                const { email, password } = generateRandomCredentials(candidate.name);
+                return {
+                    ...candidate,
+                    email,
+                    password
+                };
+            });
+
             const response = await fetch('https://recruiteraiagentbackend-1.onrender.com/api/allcandidatesEmail', {
                 method: 'POST',
                 headers: {
@@ -132,7 +142,7 @@ function JobScreeningResults() {
                 mode: 'cors',
                 body: JSON.stringify({
                     job_title: selectedJob.title,
-                    candidates: topCandidates
+                    candidates: candidatesWithCredentials
                 })
             });
 
@@ -153,6 +163,14 @@ function JobScreeningResults() {
 
     const notifySelectedCandidate = async (candidate) => {
         try {
+            // Generate credentials for the candidate
+            const { email, password } = generateRandomCredentials(candidate.name);
+            const candidateWithCredentials = {
+                ...candidate,
+                email,
+                password
+            };
+
             const response = await fetch('https://recruiteraiagentbackend-1.onrender.com/api/candidateEmail', {
                 method: 'POST',
                 headers: {
@@ -164,7 +182,7 @@ function JobScreeningResults() {
                 mode: 'cors',
                 body: JSON.stringify({
                     job_title: selectedJob.title,
-                    candidate: candidate
+                    candidate: candidateWithCredentials
                 })
             });
 
