@@ -137,13 +137,24 @@ function JobScreeningResults() {
                 };
             });
 
+            // Extract requirements from job description
+            const requirements = selectedJob.description
+                .split('\n')
+                .filter(line => line.trim().startsWith('-') || line.trim().startsWith('•'))
+                .map(line => line.replace(/^[-•]\s*/, '').trim());
+
             const jobDetails = {
-                title: selectedJob.title,
-                company: selectedJob.company || 'Company Name',
-                location: selectedJob.location || 'Location',
+                title: selectedJob.title || 'Software Engineer',
+                company: selectedJob.company || 'Tech Company',
+                location: selectedJob.location || 'Remote',
                 type: selectedJob.type || 'Full-time',
                 description: selectedJob.description || '',
-                requirements: selectedJob.requirements || []
+                requirements: requirements.length > 0 ? requirements : [
+                    'Bachelor\'s degree in Computer Science or related field',
+                    '2+ years of software development experience',
+                    'Strong programming skills',
+                    'Experience with modern web technologies'
+                ]
             };
 
             console.log('Sending notification request with payload:', {
@@ -197,13 +208,24 @@ function JobScreeningResults() {
                 skills: candidate.skills
             };
 
+            // Extract requirements from job description
+            const requirements = selectedJob.description
+                .split('\n')
+                .filter(line => line.trim().startsWith('-') || line.trim().startsWith('•'))
+                .map(line => line.replace(/^[-•]\s*/, '').trim());
+
             const jobDetails = {
-                title: selectedJob.title,
-                company: selectedJob.company || 'Company Name',
-                location: selectedJob.location || 'Location',
+                title: selectedJob.title || 'Software Engineer',
+                company: selectedJob.company || 'Tech Company',
+                location: selectedJob.location || 'Remote',
                 type: selectedJob.type || 'Full-time',
                 description: selectedJob.description || '',
-                requirements: selectedJob.requirements || []
+                requirements: requirements.length > 0 ? requirements : [
+                    'Bachelor\'s degree in Computer Science or related field',
+                    '2+ years of software development experience',
+                    'Strong programming skills',
+                    'Experience with modern web technologies'
+                ]
             };
 
             console.log('Sending notification request with payload:', {
