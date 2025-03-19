@@ -128,7 +128,8 @@ function ResumeUpload() {
                         "Access-Control-Allow-Origin": "*"
                     },
                     credentials: "include",
-                    mode: "cors"
+                    mode: "cors",
+                    body: JSON.stringify(payload)
                 });
     
                 if (!response.ok) {
