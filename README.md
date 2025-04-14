@@ -103,6 +103,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Contact
 
-Aaditya Soni - [GitHub](https://github.com/Aaditya17032002)
+Aditya Jangam - [GitHub](https://github.com/Aaditya17032002)
 
 Project Link: [https://github.com/Aaditya17032002/RecruiterAIAgent](https://github.com/Aaditya17032002/RecruiterAIAgent)
